@@ -1,0 +1,32 @@
+version: "3"
+services:
+  jenkins_master:
+    image: jenkins/jenkins:lts-alpine
+    container_name: jenkins_master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /var/jenkins_home
+  python_agent:
+    build: 
+      context: .
+      dockerfile: Dockerfile-python-agent
+    environment:
+      - JENKINS_URL=http://jenkins_master:8080
+      - JENKINS_AGENT_NAME=python-agent
+      - JENKINS_SECRET=767cb1dc2cb983644e81455c24f9fe032bfb9f1b36e3a6537a31bd13aa45c98e
+    container_name: python_agent
+    links:
+      - jenkins_master
+  ruby_agent:
+    build: 
+      context: .
+      dockerfile: Dockerfile-ruby-agent
+    environment:
+      - JENKINS_URL=http://jenkins_master:8080
+      - JENKINS_AGENT_NAME=ruby-agent
+      - JENKINS_SECRET=9da5755319d349a070e404508b25641346ee631594bf81b5edd5b0bdb544d8c1
+    container_name: ruby_agent
+    links:
+      - jenkins_master
