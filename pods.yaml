@@ -1,0 +1,16 @@
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Pod
+metadata:
+  name: jenkins-pod
+  labels:
+    app: jenkins
+spec:
+  containers:
+  - name: jenkins-master
+    image: jenkins/jenkins:2.136-alpine
+    ports:
+      - containerPort: 8080
+  # - name: python-agent
+  #   image: python-agent
+  #   ports:
+
