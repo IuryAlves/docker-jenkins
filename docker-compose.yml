@@ -9,9 +9,9 @@ services:
     volumes:
       - /var/jenkins_home
   python_agent:
-    build: 
+    build:
       context: .
-      dockerfile: Dockerfile-python-agent
+      dockerfile: Dockerfiles/Dockerfile-python-agent
     environment:
       - JENKINS_URL=http://jenkins_master:8080
       - JENKINS_AGENT_NAME=python-agent
@@ -22,7 +22,7 @@ services:
   ruby_agent:
     build: 
       context: .
-      dockerfile: Dockerfile-ruby-agent
+      dockerfile: Dockerfiles/Dockerfile-ruby-agent
     environment:
       - JENKINS_URL=http://jenkins_master:8080
       - JENKINS_AGENT_NAME=ruby-agent
